@@ -56,27 +56,28 @@ const Grids = (props) => {
         setValue(newval)
   }
   var albumList = data
-  
+  var totalItem = albumList.length
   if (props.search.length > 0){
     
     albumList = albumList.filter((i) => {
       return i.title.toLowerCase().match(props.search.toLowerCase())
     })
-    
-   console.log(props.search);
+    totalItem = albumList.length
+   //console.log(totalItem);
   }
-  console.log(albumList);
+  console.log("Total items: "+totalItem);
   const classes = useStyles();
   const itemsPerPage = 9;
   const [page, setPage] = React.useState(1);
-  const [noOfPages] = React.useState(
-    Math.ceil(albumList.length / itemsPerPage)
+  var noOfPages = (
+    Math.ceil( totalItem / itemsPerPage)
   );
-
+  console.log("Nro pages: "+noOfPages);
   const handleChangePage = (event, value) => {
     setPage(value);
   };
-
+  
+  
   return (
     <Container className={classes.cardGrid} maxWidth="md">
       <Grid container spacing={4}>
