@@ -55,7 +55,7 @@ const Grids = (props) => {
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map(albumItem => {
             return (
-                <GridSingle albumItem={albumItem}/>
+                <GridSingle key={albumItem.id} albumItem={albumItem}/>
             );
           })}
       </Grid>
