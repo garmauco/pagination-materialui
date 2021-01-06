@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-
-
-
 const Header = (props) => {
     const classes = useStyles()
     const {handleChangeSearch} = props
@@ -42,5 +39,3 @@ const Header = (props) => {
 }
 
 export default Header
-
-
