@@ -1,61 +1,81 @@
 import React from "react";
 import { makeStyles, Divider, Box, Container, Grid, Typography } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
-import data from '../datos.json'
+// import data from '../datos.json'
+import data from '../users.json'
 import GridSingle from "./GridSingle";
+// import Loader from "./Loader";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
-    backgroundColor: theme.palette.background.paper
+    display:'flex',
   },
   paginator: {
     justifyContent: "center",
     padding: "10px"
   },
   cardGrid: {
+    flexGrow:1,
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-  }
+  },
+  toolbar: theme.mixins.toolbar,
 }));
 
 
 
 const Grids = (props) => {  
-  var albumList = data
-  var totalItem = albumList.length
+  // var albumList = data
+  // var totalItem = albumList.length
+  // if (props.search.length > 0){
+    
+  //   albumList = albumList.filter((i) => {
+  //     return i.title.toLowerCase().match(props.search.toLowerCase())
+  //   })
+  //   totalItem = albumList.length
+  var userList = data
+  var totalItem = userList.length
   if (props.search.length > 0){
     
-    albumList = albumList.filter((i) => {
-      return i.title.toLowerCase().match(props.search.toLowerCase())
+    userList = userList.filter((i) => {
+      return i.name.toLowerCase().match(props.search.toLowerCase())
     })
-    totalItem = albumList.length
+    totalItem = userList.length
    //console.log(totalItem);
   }
-  console.log("Total items: "+totalItem);
+  
   const classes = useStyles();
   const itemsPerPage = 9;
   const [page, setPage] = React.useState(1);
+  // const [loading, setLoading] = React.useState(false)
   var noOfPages = (
     Math.ceil( totalItem / itemsPerPage)
   );
   console.log("Nro pages: "+noOfPages);
-  const handleChangePage = (event, value) => {
+  const handleChangePage = (event,value) => {
     setPage(value);
   };
   
   
   return (
+    <div className={classes.root}>
     <Container className={classes.cardGrid} maxWidth="md">
-      <Typography variant="h1" color="inherit" noWrap>
-            Álbumes
+      <Typography variant="h3" color="inherit" noWrap>
+            Users
       </Typography>
-      <Grid container spacing={4}>
-        {albumList
+      <Grid container spacing={4} className={classes.toolbar}>
+        {/* {albumList
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map(albumItem => {
             return (
-                <GridSingle key={albumItem.id} albumItem={albumItem}/>
+                    <GridSingle key={albumItem.id} albumItem={albumItem}/>
+            );
+          })} */}
+          {userList
+          .slice((page - 1) * itemsPerPage, page * itemsPerPage)
+          .map(userItem => {
+            return (
+                    <GridSingle key={userItem.id} userItem={userItem}/>
             );
           })}
       </Grid>
@@ -74,6 +94,7 @@ const Grids = (props) => {
         />
       </Box>
     </Container>
+    </div>
   );
 };
 

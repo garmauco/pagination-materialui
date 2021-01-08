@@ -20,20 +20,20 @@ const useStyles = makeStyles(theme => ({
   }));
 
 const GridSingle = (props) =>{
-    const {id, url, title} = props.albumItem
+    const {id, name, image} = props.userItem
     const classes = useStyles();
     return(
         <Grid item xs={12} sm={6} md={4}>
             <Card className={classes.card}>
-                <CardMedia className={classes.cardMedia} image={url}/>
+                <CardMedia className={classes.cardMedia} image={image}/>
                 <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="body2" color="secondary">
-                        {title}
+                        {name}
                     </Typography>
                     <Typography  variant="body1">
                         ID: {id.toString()}
                     </Typography>                  
-                    <InfoTabs albumItem={props.albumItem}/>
+                    <InfoTabs userItem={props.userItem}/>
                 </CardContent>
             </Card>
         </Grid>

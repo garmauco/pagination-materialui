@@ -1,40 +1,33 @@
 import React from 'react'
-import {AppBar, Toolbar, TextField} from '@material-ui/core';
-import AlbumIcon from '@material-ui/icons/Album';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {Hidden} from '@material-ui/core'
+import NavBar from './NavBar'
+import DrawerMenu from './DrawerMenu'
+import { useState } from 'react'
 
-const useStyles = makeStyles((theme) => ({
-    icon: {
-        marginRight:theme.spacing(2)
-    },
-    searchTxt:{
-        backgroundColor:theme.palette.common.white,
-        '& label': {
-            backgroundColor: theme.palette.common.white
-          },
-        border:'2px',
-        borderColor:theme.palette.common.white,
-        borderRadius:0
-    },
-    title:{
-        flex:1
-    }
-}))
 
 const Header = (props) => {
-    const classes = useStyles()
+    const [abrir, setAbrir] = useState(false)
     const {handleChangeSearch} = props
+    const desplegar = () =>{
+        setAbrir(!abrir)
+    }
     return (
-        <AppBar position="relative">
-        <Toolbar>
-            <AlbumIcon className={classes.icon} />
-            <Typography variant="h6" color="inherit" noWrap className={classes.title}>
-                Álbumes
-            </Typography>
-            <TextField size="small" id="txt-search" onChange={handleChangeSearch} className={classes.searchTxt} variant="outlined" label="Buscar..." />
-        </Toolbar>
-      </AppBar>
+        <>
+            <NavBar desplegar={desplegar} handleChangeSearch={handleChangeSearch}/>
+            <Hidden xsDown>
+                <DrawerMenu
+                    variant="permanent"
+                    open={true}
+                />
+            </Hidden>
+            <Hidden smUp>
+                <DrawerMenu
+                    variant="temporary"
+                    open={abrir}
+                    onClose={desplegar}
+                />
+            </Hidden>
+        </>
     )
 }
 
